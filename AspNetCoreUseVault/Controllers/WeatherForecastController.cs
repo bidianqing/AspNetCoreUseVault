@@ -27,13 +27,15 @@ namespace AspNetCoreUseVault.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public string Get()
         {
             // from appsettings.App.json
             var name = _configuration["AppName"];
 
             // from appsettings.DataBase.json
             var host = _configuration["Host"];
+
+            return name + " " + host;
 
             /*
             IAuthMethodInfo authMethod = new TokenAuthMethodInfo(vaultToken: "root");
@@ -55,16 +57,6 @@ namespace AspNetCoreUseVault.Controllers
 
             var password = secret.Data.Data["password"];
             //*/
-
-
-
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
         }
     }
 }
